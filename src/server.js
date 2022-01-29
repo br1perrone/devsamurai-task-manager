@@ -1,12 +1,17 @@
-require('dotenv-safe').config();
+import 'dotenv-safe/config';
+import './database';
 
 import AdminJS from 'adminjs';
 import AdminJSExpress from '@adminjs/express';
+import AdminJSSequelize from '@adminjs/sequelize'
 import express from 'express';
 
 // ENVIROMENT CONFIG
+const host = process.env.HOST || 'http://localhost';
 const port = process.env.PORT || 5000;
 
+
+AdminJS.registerAdapter(AdminJSSequelize);
 
 const app = express();
 
@@ -21,5 +26,5 @@ const router = AdminJSExpress.buildRouter( adminJS );
 
 app.use(adminJS.options.rootPaht, router);
 app.listen(port, ()=>{
-    console.log(`AdminJS is under http://localhost:${port}/admin`);
+    console.log(`AdminJS is under ${host}:${port}/admin`);
 });
