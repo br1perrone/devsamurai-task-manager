@@ -1,4 +1,4 @@
-import 'dotenv-safe/config';
+require('dotenv-safe').config({allowEmptyValues:true});
 
 module.exports = {
     dialect: "postgres",
