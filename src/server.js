@@ -6,6 +6,10 @@ import AdminJSExpress from '@adminjs/express';
 import AdminJSSequelize from '@adminjs/sequelize'
 import express from 'express';
 
+import locale from './locales';
+
+import UsersResource from './resources/UsersResource';
+
 // ENVIROMENT CONFIG
 const host = process.env.HOST || 'http://localhost';
 const port = process.env.PORT || 5000;
@@ -18,7 +22,8 @@ const app = express();
 const adminJS = new AdminJS({
     databases: [],
     rootPath: '/admin',
-    resources: []
+    ...locale,
+    resources: [UsersResource, ]
 });
 
 const router = AdminJSExpress.buildRouter( adminJS );
