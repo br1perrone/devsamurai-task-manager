@@ -21,6 +21,7 @@ Alteração da classe de banco de dados do sequelize
 
 ```bash
 npx sequelize-cli model:generate --name User --attributes name:string,email:string,password_hash:string
+npx sequelize-cli model:generate --name Project --attributes name:string,description:string,status:enum,user_id:integer
 ```
 
 ## Rodar as migrations
