@@ -54,11 +54,11 @@ export default {
             },
             createdAt: {
                 position: 7,
-                isVisible: { list: true, filter: filter, show: true, edit: false, },
+                isVisible: { list: true, filter: true, show: true, edit: false, },
             },
             updatedAt: {
                 position: 8,
-                isVisible: { list: true, filter: filter, show: true, edit: false, },
+                isVisible: { list: false, filter: true, show: true, edit: false, },
             },
             password: {
                 position: 9,

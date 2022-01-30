@@ -13,4 +13,5 @@ npm i express-session@^1.17.2
 npm i dotenv-safe
 npm i @adminjs/sequelize@^2.1.0 sequelize@^6.12.5 pg@^8.7.1 pg-hstore@^2.3.4
 npm i sequelize-cli@^6.3.0 --save-dev
+npm i @adminjs/upload
 ```

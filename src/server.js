@@ -9,6 +9,7 @@ import express from 'express';
 import locale from './locales';
 
 import UsersResource from './resources/UsersResource';
+import ProjectsResource from './resources/ProjectsResource';
 
 // ENVIROMENT CONFIG
 const host = process.env.HOST || 'http://localhost';
@@ -23,7 +24,7 @@ const adminJS = new AdminJS({
     databases: [],
     rootPath: '/admin',
     ...locale,
-    resources: [UsersResource, ]
+    resources: [UsersResource, ProjectsResource, ]
 });
 
 const router = AdminJSExpress.buildRouter( adminJS );

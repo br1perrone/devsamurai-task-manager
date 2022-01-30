@@ -42,9 +42,6 @@ const translations = {
         adminVersion: "Admin: {{version}}",
         appVersion: "App: {{version}}",
         loginWelcome: "Bem vindo(a)",
-        users: "Usuários",
-        projects: "Projetos",
-        tasks: "Tarefas",
         ...labels,
     },
     properties: {
