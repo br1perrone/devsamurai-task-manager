@@ -36,3 +36,8 @@ npx sequelize-cli db:migrate
 ```bash
 npx sequelize-cli migration:generate --name add-upload-to-task
 ```
+
+## Seeder para criar usuário administrador inicial
+```bash
+npx sequelize-cli seed:generate --name create-admin-user
+```

@@ -2,6 +2,12 @@ import AdminJS from 'adminjs';
 
 import User from '../models/user';
 
+import {
+    hasAdminPermission,
+    hasManagerPermission,
+    hasDeveloperPermission,
+} from '../services/auth';
+
 export default {
     resource: User,
     options: {
@@ -9,9 +15,25 @@ export default {
             icon: "User",
         },
         actions: {
+            list: {
+                isAccessible: ({currentAdmin})=> hasDeveloperPermission(currentAdmin),
+            },
+            show: {
+                isAccessible: ({currentAdmin})=> hasManagerPermission(currentAdmin),
+            },
+            new: {
+                isAccessible: ({currentAdmin})=> hasAdminPermission(currentAdmin),
+            },
+            edit: {
+                isAccessible: ({currentAdmin})=> hasManagerPermission(currentAdmin),
+            },
+            delete: {
+                isAccessible: ({currentAdmin})=> hasAdminPermission(currentAdmin),
+            },
             resetPassword: {
                 actionType: 'record',
                 icon: 'Password',
+                isAccessible: ({currentAdmin})=> hasManagerPermission(currentAdmin),
                 handler: async (request, response, context) => {
                     return {
                         record: context.record.toJSON(),
@@ -35,8 +57,12 @@ export default {
                 position: 4,
                 isRequired: true,
             },
-            role: {
+            password: {
                 position: 5,
+                isVisible: { list: false, filter: false, show: false, edit: true, },
+            },
+            role: {
+                position: 6,
                 isRequired: true,
                 availableValues: [
                     { value: 'admin', label: 'Administrador' },
@@ -45,7 +71,7 @@ export default {
                 ],
             },
             status: {
-                position: 6,
+                position: 7,
                 isRequired: true,
                 availableValues: [
                     { value: 'active', label: 'Ativo' },
@@ -53,21 +79,14 @@ export default {
                 ],
             },
             createdAt: {
-                position: 7,
+                position: 8,
                 isVisible: { list: true, filter: true, show: true, edit: false, },
             },
             updatedAt: {
-                position: 8,
+                position: 9,
                 isVisible: { list: false, filter: true, show: true, edit: false, },
             },
-            password: {
-                position: 9,
-                isVisible: false,
-            },
-            password_hash: {
-                position: 10,
-                isVisible: false,
-            },
+            password_hash: { isVisible: false, },
        },
     },
 }

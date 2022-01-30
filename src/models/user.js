@@ -1,5 +1,7 @@
 import Sequelize, { Model } from 'sequelize';
 
+import * as auth from '../services/auth';
+
 class User extends Model {
   static init(sequelize) {
     super.init({
@@ -26,37 +28,24 @@ class User extends Model {
         plural: 'users'
       },
     });
+
+    this.addHook(
+      ('beforeSave',
+      async (user) => {
+        if (user.password) {
+          user.password_hash = await auth.createPasswordHash(user.password);
+        }
+      })
+    );
   }
 
   static associate(models) {
     this.hasMany(models.Project);
     this.hasMany(models.Task);
   }
+
+  checkPassword(password) {
+    return auth.checkPassword(this, password)
+  }
 }
 export default User;
-
-// 'use strict';
-// const {
-//   Model
-// } = require('sequelize');
-// module.exports = (sequelize, DataTypes) => {
-//   class User extends Model {
-//     /**
-//      * Helper method for defining associations.
-//      * This method is not a part of Sequelize lifecycle.
-//      * The `models/index` file will call this method automatically.
-//      */
-//     static associate(models) {
-//       // define association here
-//     }
-//   };
-//   User.init({
-//     name: DataTypes.STRING,
-//     email: DataTypes.STRING,
-//     password_hash: DataTypes.STRING
-//   }, {
-//     sequelize,
-//     modelName: 'User',
-//   });
-//   return User;
-// };

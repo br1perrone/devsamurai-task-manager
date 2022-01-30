@@ -2,11 +2,34 @@ import AdminJS from 'adminjs';
 
 import Project from '../models/project';
 
+import {
+    hasAdminPermission,
+    hasManagerPermission,
+    hasDeveloperPermission,
+} from '../services/auth';
+
 const ProjectsResource = {
     resource: Project,
     options: {
         parent: {
             icon: "Roadmap",
+        },
+        actions: {
+            list: {
+                isAccessible: ({currentAdmin})=> hasDeveloperPermission(currentAdmin),
+            },
+            show: {
+                isAccessible: ({currentAdmin})=> hasDeveloperPermission(currentAdmin),
+            },
+            new: {
+                isAccessible: ({currentAdmin})=> hasManagerPermission(currentAdmin),
+            },
+            edit: {
+                isAccessible: ({currentAdmin})=> hasManagerPermission(currentAdmin),
+            },
+            delete: {
+                isAccessible: ({currentAdmin})=> hasManagerPermission(currentAdmin),
+            },
         },
         properties: {
             id: {

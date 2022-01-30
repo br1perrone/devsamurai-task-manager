@@ -11,11 +11,12 @@ import theme from './theme';
 
 import UsersResource from './resources/UsersResource';
 import ProjectsResource from './resources/ProjectsResource';
+import { checkAuthenticate } from './services/auth';
 
 // ENVIROMENT CONFIG
 const host = process.env.HOST || 'http://localhost';
 const port = process.env.PORT || 5000;
-
+const secret = process.env.SECRET;
 
 AdminJS.registerAdapter(AdminJSSequelize);
 
@@ -36,8 +37,11 @@ const adminJS = new AdminJS({
     resources: [UsersResource, ProjectsResource, ]
 });
 
-const router = AdminJSExpress.buildRouter( adminJS );
-
+// const router = AdminJSExpress.buildRouter( adminJS );
+const router = AdminJSExpress.buildAuthenticatedRouter( adminJS, {
+    authenticate: checkAuthenticate,
+    cookiePassword: secret,
+} );
 
 app.use(adminJS.options.rootPaht, router);
 app.listen(port, ()=>{

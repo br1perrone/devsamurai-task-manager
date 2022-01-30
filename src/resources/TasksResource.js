@@ -4,6 +4,12 @@ import uploadFeature from '@adminjs/upload';
 
 import Task from '../models/task';
 
+import {
+    hasAdminPermission,
+    hasManagerPermission,
+    hasDeveloperPermission,
+} from '../services/auth';
+
 import local from '../config/upload/local';
 import aws from '../config/upload/aws';
 import gcp from '../config/upload/gcp';
@@ -17,6 +23,23 @@ const TasksResource = {
     options: {
         parent: {
             icon: "Task",
+        },
+        actions: {
+            list: {
+                isAccessible: ({currentAdmin})=> hasDeveloperPermission(currentAdmin),
+            },
+            show: {
+                isAccessible: ({currentAdmin})=> hasDeveloperPermission(currentAdmin),
+            },
+            new: {
+                isAccessible: ({currentAdmin})=> hasDeveloperPermission(currentAdmin),
+            },
+            edit: {
+                isAccessible: ({currentAdmin})=> hasDeveloperPermission(currentAdmin),
+            },
+            delete: {
+                isAccessible: ({currentAdmin})=> hasDeveloperPermission(currentAdmin),
+            },
         },
         properties: {
             id: {
