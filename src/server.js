@@ -7,6 +7,7 @@ import AdminJSSequelize from '@adminjs/sequelize'
 import express from 'express';
 
 import locale from './locales';
+import theme from './theme';
 
 import UsersResource from './resources/UsersResource';
 import ProjectsResource from './resources/ProjectsResource';
@@ -25,6 +26,11 @@ const adminJS = new AdminJS({
     rootPath: '/admin',
     dashboard: {
         component: AdminJS.bundle("./components/Dashboard/index"),
+    },
+    branding: {
+        companyName: process.env.COMPANY_NAME,
+        softwareBrothers: false,
+        theme,
     },
     ...locale,
     resources: [UsersResource, ProjectsResource, ]
