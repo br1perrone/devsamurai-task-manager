@@ -1,5 +1,7 @@
-|Users|||
+**Users**
+
 |K|Field|Type|
+|:---:|:---|:---|
 |(PK)|id|BigInteger|
 |(N)|name|VarChar(255)|
 |(U)|email|VarChar(255)|
@@ -7,16 +9,20 @@
 ||role|Enum|
 ||status|Enum|
 
-|Projects|||
+**Projects**
+
 |K|Field|Type|
+|:---:|:---|:---|
 |(PK)|id|BigInteger|
 ||name|VarChar(255)|
 |(N)|description|Text|
 ||status|Enum|
 |(FK)|user_id|BigInteger|
 
-|Tasks|||
+**Tasks**
+
 |K|Field|Type|
+|:---:|:---|:---|
 |(PK)|id|BigInteger|
 |(N)|due_date|DateTime|
 |(N)|effort|Integer|
